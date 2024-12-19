@@ -1702,15 +1702,17 @@ int fdtdec_setup(void)
 			gd->fdt_src = FDTSRC_EMBED;
 		}
 	}
-
-	/* Allow the board to override the fdt address. */
-	if (IS_ENABLED(CONFIG_OF_BOARD)) {
-		gd->fdt_blob = board_fdt_blob_setup(&ret);
-		if (!ret)
-			gd->fdt_src = FDTSRC_BOARD;
-		else if (ret != -EEXIST)
-			return ret;
-	}
+ 
+    // Now uboot on Nanhuv3a is reusing QEMU RISC-V board target
+    // comment this to avoid the board overiding the fdt address
+	///* Allow the board to override the fdt address. */
+	//if (IS_ENABLED(CONFIG_OF_BOARD)) {
+	//	gd->fdt_blob = board_fdt_blob_setup(&ret);
+	//	if (!ret)
+	//		gd->fdt_src = FDTSRC_BOARD;
+	//	else if (ret != -EEXIST)
+	//		return ret;
+	//}
 
 	/* Allow the early environment to override the fdt address */
 	if (!IS_ENABLED(CONFIG_SPL_BUILD)) {
